@@ -1,61 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Speech-to-Text Summarizer</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <section class="card">
-        <h1>Speech-to-Text Summarizer</h1>
-        <p class="subtitle">
-          Start the microphone, speak naturally in Hebrew or English, and the app will transcribe your words into a clear summary you can hear back aloud.
-        </p>
 
-        <label class="field-label" for="transcriptOutput">Live transcript</label>
-        <textarea id="transcriptOutput" rows="12" placeholder="Press Start listening to begin transcribing..."></textarea>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Speech-to-Text Summarizer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-        <div class="controls">
-          <label for="languageSelect">Language</label>
-          <select id="languageSelect">
-            <option value="he-IL">Hebrew</option>
-            <option value="en-US">English</option>
-          </select>
+<body>
+  <main class="app-shell">
+    <section class="card">
+      <h1>Speech-to-Text Summarizer</h1>
+      <p class="subtitle">
+        Start the microphone, speak naturally in Hebrew or English, and the app will transcribe your words into a clear
+        summary you can hear back aloud.
+      </p>
 
-          <label for="voiceSelect">Voice</label>
-          <select id="voiceSelect"></select>
+      <label class="field-label" for="transcriptOutput">Live transcript</label>
+      <textarea id="transcriptOutput" rows="12" placeholder="Press Start listening to begin transcribing..."></textarea>
 
-          <label for="summaryMode">Summary style</label>
-          <select id="summaryMode">
-            <option value="one-sentence">One sentence</option>
-            <option value="short-summary" selected>Short summary</option>
-            <option value="key-points">Key points</option>
-          </select>
+      <div class="controls">
+        <label for="languageSelect">Language</label>
+        <select id="languageSelect">
+          <option value="he-IL">Hebrew</option>
+          <option value="en-US">English</option>
+        </select>
 
-          <label for="summaryLength">Summary length</label>
-          <input id="summaryLength" type="range" min="1" max="4" value="2" />
-          <span id="lengthValue">2 sentences</span>
-        </div>
+        <label for="voiceSelect">Voice</label>
+        <select id="voiceSelect"></select>
 
-        <div class="button-row">
-          <button id="startBtn">Start listening</button>
-          <button id="stopBtn" class="secondary">Stop</button>
-          <button id="summarizeBtn">Summarize</button>
-          <button id="speakBtn" class="ghost">Speak summary</button>
-          <button id="clearBtn" class="ghost">Clear</button>
-        </div>
+        <label for="summaryMode">Summary style</label>
+        <select id="summaryMode">
+          <option value="one-sentence">One sentence</option>
+          <option value="short-summary" selected>Short summary</option>
+          <option value="key-points">Key points</option>
+        </select>
 
-        <p id="status" class="status">Ready to listen.</p>
+        <label for="summaryLength">Summary length</label>
+        <input id="summaryLength" type="range" min="1" max="12" value="2" />
+        <span id="lengthValue">2 sentences</span>
+      </div>
 
-        <section class="result-panel">
-          <h2>Summary</h2>
-          <div id="summaryOutput">Your summary will appear here.</div>
-        </section>
+      <div class="button-row">
+        <button id="startBtn">Start listening</button>
+        <button id="stopBtn" class="secondary">Stop</button>
+        <button id="summarizeBtn">Summarize</button>
+        <button id="speakBtn" class="ghost">Speak summary</button>
+        <button id="clearBtn" class="ghost">Clear</button>
+      </div>
+
+      <p id="status" class="status">Ready to listen.</p>
+
+      <section class="result-panel">
+        <h2>Summary</h2>
+        <div id="summaryOutput">Your summary will appear here.</div>
       </section>
-    </main>
+    </section>
+  </main>
 
-    <script src="script.js"></script>
-  </body>
+  <script src="script.js"></script>
+</body>
+
 </html>
