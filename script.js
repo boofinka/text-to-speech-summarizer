@@ -17,6 +17,7 @@ let recognition = null;
 let finalTranscript = '';
 let interimTranscript = '';
 let isListening = false;
+let usingWhisper = false;
 let currentLanguage = 'he-IL';
 let selectedVoiceName = 'auto';
 
@@ -262,11 +263,14 @@ function initRecognition() {
   return recognition;
 }
 
-function startListening() {
+async function startListening() {
+  // Prefer the offline Whisper model – fall back to native if unavailable.
+  const whisperStarted = await startWhisperListening();
+  if (whisperStarted) return;
+
+  // Fallback to the built‑in SpeechRecognition API.
   const speechRecognition = initRecognition();
-  if (!speechRecognition) {
-    return;
-  }
+  if (!speechRecognition) return;
 
   if (isListening) {
     statusEl.textContent = 'Already listening.';
@@ -277,6 +281,12 @@ function startListening() {
     speechRecognition.lang = currentLanguage;
     finalTranscript = transcriptOutput.value.trim();
     interimTranscript = '';
+    isListening = true;
+    // Update UI to indicate active listening
+    startBtn.textContent = 'Listening...';
+    startBtn.disabled = true;
+    const indicator = document.getElementById('listeningIndicator');
+    if (indicator) indicator.style.display = 'inline-block';
     speechRecognition.start();
   } catch (error) {
     statusEl.textContent = 'Unable to start microphone capture.';
@@ -284,8 +294,21 @@ function startListening() {
 }
 
 function stopListening() {
+  if (usingWhisper && window._whisper) {
+    stopWhisperListening();
+    return;
+  }
   if (recognition && isListening) {
-    recognition.stop();
+    if (recognition && isListening) {
+      recognition.stop();
+    }
+    isListening = false;
+    statusEl.textContent = 'Listening stopped.';
+    // Reset UI
+    startBtn.textContent = 'Start listening';
+    startBtn.disabled = false;
+    const indicator = document.getElementById('listeningIndicator');
+    if (indicator) indicator.style.display = 'none';
   }
 }
 
